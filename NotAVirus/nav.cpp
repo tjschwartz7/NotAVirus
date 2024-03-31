@@ -27,6 +27,12 @@ int main()
     //The ride never ends
     while(true)
     {
+
+        if (iter >= 10000)
+        {
+            std::cout << "Congratulations. You did it. Hooray. Your reward is..." << std::endl;
+            break;
+        }
         //Start the fire
         hThreadArray[iter] = CreateThread(
             NULL,                   // default security attributes
@@ -69,13 +75,19 @@ DWORD WINAPI BadIdea(LPVOID lpParam)
         //This is a sufficiently inefficient way to do this
         for (int i = 0; i < 100; i++)
         {
+            //This loop only exists to make the program run more than it needs to
             for (int j = 0; j < 100; j++)
             {
-                //Yucky
-                //Takes advantage of locality to ensure that no two doubles accessed are adjacent to each other in memory.
-                //This makes the program take longer because now the program has to perform another cache access each time instead of storing anything
-                //of value in its cache >:)
-                arr[j*100+i] = j * i*.01*1.5*2.75;
+                //This loop exists
+                for (int k = 0; k < 100; k++)
+                {
+                    //Yucky
+                    //Takes advantage of locality to ensure that no two doubles accessed are adjacent to each other in memory.
+                    //This makes the program take longer because now the program has to perform another cache access each time instead of storing anything
+                    //of value in its cache >:)
+                    arr[i * k + k] = j * i * .0111122233344 * 1.51212424256575 * 2.7512354124324*12.12345678912345678;
+                    arr[i * k + k] = sqrt(arr[i * k + k]);
+                }
             }
         }
     }
